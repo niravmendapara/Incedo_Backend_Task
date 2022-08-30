@@ -9,6 +9,7 @@ const instance = require("../Config/config").instance;
 
 
 //  This API will save data in CSV file is there is any data for given artist Name------------------ also i have give 3 dummy data if there are no any data for given artist name ----------------------------------------------
+
 // if you want to run this API please call http://localhost:8000/searchartistbyname in POSTMAN. and you will get CSV file in Public/CSVs Folder.
 
 router.post("/searchartistbyname", async (req, res, next) => {
@@ -28,13 +29,12 @@ router.post("/searchartistbyname", async (req, res, next) => {
     name = artistname+'.csv'  // CSV file name will be artist name.
 
     response.data?.results?.artistmatches?.artist.forEach(x => {
-      // if there are any missing data then we put '-' instead of the empty.
       artistcsvname.push({
-        name : x.name ? x.name : '-',
-        mbid : x.mbid ? x.mbid : '-',
-        url : x.url ? x.url : '-',
-        image_small : x.image[0]?.["#text"] ? x.image[0]?.["#text"] : '-',
-        image : x.image[1]?.["#text"] ?  x.image[1]?.["#text"] : '-'
+        name : x?.name,
+        mbid : x?.mbid,
+        url : x?.url,
+        image_small : x?.image[0]?.["#text"],
+        image : x?.image[1]?.["#text"]
       })
     });
   }
@@ -50,13 +50,12 @@ router.post("/searchartistbyname", async (req, res, next) => {
         const dummy_response = await instance.post("/2.0/?method=artist.search&artist="+dummyname+"&api_key="+api_key+"&format=json&page=1")
         // console.log(dummy_response.data?.results?.artistmatches?.artist.length)
         await dummy_response.data?.results?.artistmatches?.artist.forEach(y => {
-          // if there are any missing data then we put '-' instead of the empty.
           artistcsvname.push({
-            name : y.name ? y.name : '-',
-            mbid : y.mbid ? y.mbid : '-',
-            url : y.url ? y.url : '-',
-            image_small : y.image[0]?.["#text"] ? y.image[0]?.["#text"] : '-',
-            image : y.image[1]?.["#text"] ?  y.image[1]?.["#text"] : '-'
+            name : y?.name,
+            mbid : y?.mbid,
+            url : y?.url,
+            image_small : y?.image[0]?.["#text"],
+            image : y?.image[1]?.["#text"]
           })
         });
       })
