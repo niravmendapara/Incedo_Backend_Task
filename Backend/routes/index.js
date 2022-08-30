@@ -14,11 +14,11 @@ const instance = require("../Config/config").instance;
 
 router.post("/searchartistbyname", async (req, res, next) => {
   // const artistname = req.body.artistname     // if we want to give name from frontend side and assign to the variable.
-  const artistname = "cher"                     // manually given artistname
+  const artistname = "Nirav"                    // manually given artistname
 
   const response = await instance.post("/2.0/?method=artist.search&artist="+artistname+"&api_key="+api_key+"&format=json&page=1")     // this API i found by artist.search link which was in PDF Task
 
-  const name = ""
+  var name = ""
   const artistcsvname = []
 
   // console.log(response.data?.results?.artistmatches?.artist.length)
